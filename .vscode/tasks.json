@@ -49,6 +49,40 @@
             "message": 5
           }
         }
+      },
+
+      {
+        "label": "Run Ruby",
+        "type": "shell",
+        "command": "ruby",
+        "args": [
+            "${file}",
+            "<",
+            "input.txt",
+            ">",
+            "output.txt"
+        ],
+        "presentation": {
+            "reveal": "never"
+        },
+        "group": {
+            "kind": "build",
+            "isDefault": true
+        },
+        "problemMatcher": {
+            "owner": "ruby",
+            "fileLocation": [
+                "relative",
+                "${workspaceFolder}"
+            ],
+            "pattern": {
+                "regexp": "^(.*):(\\d+):\\s+(error|warning):\\s+(.*)$",
+                "file": 1,
+                "line": 2,
+                "severity": 3,
+                "message": 4
+            }
+        }
       }
     ]
   }
