@@ -92,4 +92,63 @@ puts trap(input_array)  # Output: 6
 # left >= right, so we exit the loop
 # Output: 8
 # Output: 6
+
+# Brute force approach
+def trap_brute_force(height)
+  return 0 if height.empty?
+  n = height.length
+  water = 0
+
+  (0...n).each do |i|
+    left_max = 0
+    right_max = 0
+
+    # Find the maximum height to the left of the current index
+    (0..i).each do |j|
+      left_max = [left_max, height[j]].max
+    end
+
+    # Find the maximum height to the right of the current index
+    (i...n).each do |j|
+      right_max = [right_max, height[j]].max
+    end
+
+    # Calculate the water trapped at the current index
+    water += [left_max, right_max].min - height[i]
+  end
+
+  water
+end
+
+# Example usage
+input_array = [0,1,0,2,1,0,1,3,2,1,2,1]
+puts trap_brute_force(input_array)  # Output: 6
+
+# Dry run of the code with input_array = [0,1,0,2,1,0,1,3,2,1,2,1]
+# Initial state: water = 0
+# Iteration 1: i = 0, left_max = 0, right_max = 3
+# water += min(0, 3) - 0 = 0
+# Iteration 2: i = 1, left_max = 1, right_max = 3
+# water += min(1, 3) - 1 = 0
+# Iteration 3: i = 2, left_max = 1, right_max = 3
+# water += min(1, 3) - 0 = 1
+# Iteration 4: i = 3, left_max = 2, right_max = 3
+# water += min(2, 3) - 2 = 1
+# Iteration 5: i = 4, left_max = 2, right_max = 3
+# water += min(2, 3) - 1 = 2
+# Iteration 6: i = 5, left_max = 2, right_max = 3
+# water += min(2, 3) - 0 = 4
+# Iteration 7: i = 6, left_max = 2, right_max = 3
+# water += min(2, 3) - 1 = 5
+# Iteration 8: i = 7, left_max = 3, right_max = 3
+# water += min(3, 3) - 3 = 5
+# Iteration 9: i = 8, left_max = 3, right_max = 2
+# water += min(3, 2) - 2 = 6
+# Iteration 10: i = 9, left_max = 3, right_max = 2
+# water += min(3, 2) - 1 = 6
+# Iteration 11: i = 10, left_max = 3, right_max = 2
+# water += min(3, 2) - 2 = 6
+# Iteration 12: i = 11, left_max = 3, right_max = 1
+# water += min(3, 1) - 1 = 6
+# Output: 6
 # 
